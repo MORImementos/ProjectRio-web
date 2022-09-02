@@ -236,3 +236,10 @@ cCHAR_ALIASES = {
     "B!Bro": 54,
     "BBro": 54,
 }
+
+cGROUPS = {
+    "admin": "Admin",
+    "beta_user": "Beta User",
+    "patron": "Patron",
+    "developer": "Developer"
+}

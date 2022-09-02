@@ -1,4 +1,6 @@
-from flask import abort
+from flask import request, abort
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from .models import db, RioUser
 
 def calculate_era(runs_allowed, outs_pitched):
     if outs_pitched == 0 and runs_allowed > 0:
@@ -38,3 +40,18 @@ def sanatize_ints(str):
       final_arr.append(int(val))
 
   return final_arr
+
+@jwt_required(optional=True)
+def get_user(dict):
+  try:
+    if dict.jwt:
+      username = get_jwt_identity()
+      user = RioUser.query.filter_by(username=username).first()
+    if dict.rio_key:
+      user = RioUser.query.filter_by(rio_key=dict.rio_key).first()
+    if dict.username:
+      username_lowercase = dict.username.lower()
+      user = RioUser.query.filter_by(username_lowercase=username_lowercase).first()
+    return user if user else False
+  except:
+    return False

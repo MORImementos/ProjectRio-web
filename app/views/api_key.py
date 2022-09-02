@@ -45,7 +45,7 @@ def request_apikey():
 
     return "Check your email address for your api key."
 
-# TODO: Send email with API Key, not active_url
+
 @app.route('/api_key/reset/', methods=['POST'])
 def reset_api_key():
     email_lowercase = request.json['Email'].lower()
